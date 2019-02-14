@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import 'dateTime.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
+class addReminder extends StatefulWidget{
+  @override
+  addReminderState createState() => addReminderState();
+}
 
 
 
-
-
-class addReminder extends StatelessWidget {
+class addReminderState extends State<addReminder> {
   dateTime dateTimeWidget = new dateTime();
   DateTime date;
 
-  final key = new GlobalKey<dateTimeState>();
+
+
+  DateTime dateT;
+
+  InputType inputType = InputType.both;
+
+  final formats = {
+    InputType.both: DateFormat("EEEE, MMMM d, yyyy 'at' h:mma"),
+    InputType.date: DateFormat('yyyy-MM-dd'),
+    InputType.time: DateFormat("HH:mm"),
+  };
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +52,17 @@ class addReminder extends StatelessWidget {
               ),
 
             ),
-            new dateTime(),
+            DateTimePickerFormField(
+              inputType: InputType.both,
+              editable: true,
+              format: formats[inputType],
+              decoration: InputDecoration(
+                  labelText: 'Date/Time', hasFloatingPlaceholder: false),
+              onChanged: (dt) {
+                setState(() => dateT = dt);
+              },
+
+            ),
             RaisedButton(
             child: Text('Save'),
         onPressed: () {
@@ -51,7 +80,7 @@ class addReminder extends StatelessWidget {
   dateAndTimeWidget(BuildContext context) async {
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_)=> new dateTime()),
+      MaterialPageRoute(builder: (_)=>  dateTime()),
     );
 
 }

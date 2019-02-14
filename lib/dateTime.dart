@@ -8,7 +8,7 @@ class dateTime extends StatefulWidget{
 }
 class dateTimeState extends State<dateTime>{
 
-  static DateTime dateT;
+   DateTime dateT;
 
   InputType inputType = InputType.both;
 
